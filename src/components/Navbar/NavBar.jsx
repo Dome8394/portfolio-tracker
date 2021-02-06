@@ -1,5 +1,7 @@
 import React from 'react';
 import IconLogin from './IconLogIn';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 
 /**
  * Renders the navigation bar
@@ -17,7 +19,8 @@ class NavBar extends React.Component {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav navbar-right ms-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#"><IconLogin /> Log In</a>
+                                    <a className="nav-link" href="#"><FontAwesomeIcon icon={faCoffee} /> Log In</a>
+                                    <i className="fad fa-camera"></i>
                                 </li>
                                 <li className="nav-item">
                                     <a href="#" className="nav-link">Sign In</a>
