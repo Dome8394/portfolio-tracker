@@ -3,19 +3,30 @@ import $ from 'jquery';
 import axios from 'axios';
 
 class Table extends React.Component {
+    _isMounted = false;
 
     constructor(props) {
         super(props);
         this.state = {
-            tableHasContent: false
+            tableHasContent: false,
+            stocks: []
         }
     }
 
     componentDidMount() {
+        this._isMounted = true;
 
         axios.get('http://localhost:3000/myStocks')
-            .then(function (res) {
-                console.log(res.data);
+            .then((res) => {
+                if (this._isMounted) {
+                    const myStocks = res.data;
+                    this.setState({
+                        stocks: myStocks
+                    });
+                    console.log(this.state.stocks);
+                } else {
+                    return;
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -34,11 +45,15 @@ class Table extends React.Component {
             return;
         }
 
-        if (table.length > 0) {
+        if (table.length > 0 && this._isMounted) {
             this.setState({
                 tableHasContent: true
             });
         }
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render() {
