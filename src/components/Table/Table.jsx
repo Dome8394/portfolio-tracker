@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import axios from 'axios';
 
 class Table extends React.Component {
 
@@ -11,6 +12,17 @@ class Table extends React.Component {
     }
 
     componentDidMount() {
+
+        axios.get('http://localhost:3000/myStocks')
+            .then(function (res) {
+                console.log(res.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+                return;
+            });
+
+
         /*
         * Tabelle kann nicht gefunden werden weil diese erst im render an der richtigen Stelle
         * zurück gegeben wird!
@@ -30,7 +42,7 @@ class Table extends React.Component {
     }
 
     render() {
-       
+
         let tableHasContent = this.state.tableHasContent;
         if (!tableHasContent) {
             return <div className="row"><div className="col-3 mx-auto mt-5"><span>Derzeit wurden keine Käufe oder Verkäufe getätigt.</span></div></div>
