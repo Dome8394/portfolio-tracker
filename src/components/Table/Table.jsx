@@ -1,6 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 class Table extends React.Component {
     _isMounted = false;
@@ -71,11 +73,24 @@ class Table extends React.Component {
          * Center text for the alert boxes
          */
         if (serverNotAvailable) {
-            return <div className="row"><div className="col-6 mx-auto mt-5 alert alert-warning"><span>Tut uns Leid! Der Server konnte nicht kontaktiert werden. Bitte versuchen Sie es später noch einmal!</span></div></div>
+            return <div className="row justify-content-sm-center"><div className="col-sm-auto mx-auto mt-5 alert alert-warning"><span>Tut uns Leid! Der Server konnte nicht kontaktiert werden. Bitte versuchen Sie es später noch einmal!</span></div></div>
         }
 
-        if (!tableHasContent) {
-            return <div className="row"><div className="col-6 mx-auto mt-5 alert alert-danger"><span>Derzeit wurden keine Käufe oder Verkäufe getätigt.</span></div></div>
+        if (tableHasContent) {
+            return (
+                <div className="row justify-content-sm-center">
+                    <div className="col-6 mx-auto mt-5">
+                        <div className=" alert alert-danger">
+                            Derzeit wurden keine Käufe oder Verkäufe getätigt.
+                        </div>
+                    </div>
+                    <div className="col-xs-1">
+                        <button className="btn btn-primary">
+                            <FontAwesomeIcon icon={faPlus} />
+                        </button>
+                    </div>
+                </div>
+            )
         }
 
         return (
