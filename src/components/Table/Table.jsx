@@ -67,6 +67,9 @@ class Table extends React.Component {
         let tableHasContent = this.state.tableHasContent;
         let serverNotAvailable = this.state.serverNotAvailable;
 
+        /**
+         * Center text for the alert boxes
+         */
         if (serverNotAvailable) {
             return <div className="row"><div className="col-6 mx-auto mt-5 alert alert-warning"><span>Tut uns Leid! Der Server konnte nicht kontaktiert werden. Bitte versuchen Sie es später noch einmal!</span></div></div>
         }
