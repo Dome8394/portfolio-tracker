@@ -16,6 +16,9 @@ class Table extends React.Component {
     componentDidMount() {
         this._isMounted = true;
 
+        /**
+         * Retrieve all stocks of a portfolio
+         */
         axios.get('http://localhost:3000/myStocks')
             .then((res) => {
                 if (this._isMounted) {
@@ -23,7 +26,6 @@ class Table extends React.Component {
                     this.setState({
                         stocks: myStocks
                     });
-                    console.log(this.state.stocks);
                 } else {
                     return;
                 }
@@ -38,18 +40,18 @@ class Table extends React.Component {
         * Tabelle kann nicht gefunden werden weil diese erst im render an der richtigen Stelle
         * zurück gegeben wird!
         */
-        var table = $("#myTable td");
+        // var table = $("#myTable td");
 
-        if (!table) {
-            console.log("Table wurde nicht gefunden");
-            return;
-        }
+        // if (!table) {
+        //     console.log("Table wurde nicht gefunden");
+        //     return;
+        // }
 
-        if (table.length > 0 && this._isMounted) {
-            this.setState({
-                tableHasContent: true
-            });
-        }
+        // if (table.length > 0 && this._isMounted) {
+        //     this.setState({
+        //         tableHasContent: true
+        //     });
+        // }
     }
 
     componentWillUnmount() {
@@ -59,9 +61,9 @@ class Table extends React.Component {
     render() {
 
         let tableHasContent = this.state.tableHasContent;
-        if (!tableHasContent) {
-            return <div className="row"><div className="col-3 mx-auto mt-5"><span>Derzeit wurden keine Käufe oder Verkäufe getätigt.</span></div></div>
-        }
+        // if (!tableHasContent) {
+        //     return <div className="row"><div className="col-3 mx-auto mt-5"><span>Derzeit wurden keine Käufe oder Verkäufe getätigt.</span></div></div>
+        // }
         return (
             <div>
                 <div className="row">
@@ -79,23 +81,24 @@ class Table extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td colspan="2">Larry the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                                {console.log("Enter body...")}
+                                {
+                                    this.state.stocks.map((stock, key) => {
+                                        
+                                        return (
+                                            <tr key={key}>
+                                                <td>{stock.isin}</td>
+                                                <td>{stock.title}</td>
+                                                <td>{stock.boughtAt}</td>
+                                                <td>{stock.amount}</td>
+                                                <td>{stock.cost}</td>
+                                                <td>{stock.fee}</td>
+                                                <td>{stock.totalAmount}</td>
+                                            </tr>
+                                        )
+                                    }
+                                    )
+                                }
                             </tbody>
                         </table>
                     </div>
