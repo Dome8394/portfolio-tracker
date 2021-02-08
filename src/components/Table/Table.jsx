@@ -9,6 +9,7 @@ class Table extends React.Component {
         super(props);
         this.state = {
             tableHasContent: false,
+            serverNotAvailable: true,
             stocks: []
         }
     }
@@ -21,10 +22,13 @@ class Table extends React.Component {
          */
         axios.get('http://localhost:3000/myStocks')
             .then((res) => {
-                if (this._isMounted) {
+
+                if (this._isMounted && res.data) {
                     const myStocks = res.data;
                     this.setState({
-                        stocks: myStocks
+                        stocks: myStocks,
+                        tableHasContent: true,
+                        serverNotAvailable: false
                     });
                 } else {
                     return;
@@ -61,13 +65,20 @@ class Table extends React.Component {
     render() {
 
         let tableHasContent = this.state.tableHasContent;
-        // if (!tableHasContent) {
-        //     return <div className="row"><div className="col-3 mx-auto mt-5"><span>Derzeit wurden keine Käufe oder Verkäufe getätigt.</span></div></div>
-        // }
+        let serverNotAvailable = this.state.serverNotAvailable;
+
+        if (serverNotAvailable) {
+            return <div className="row"><div className="col-6 mx-auto mt-5 alert alert-warning"><span>Tut uns Leid! Der Server konnte nicht kontaktiert werden. Bitte versuchen Sie es später noch einmal!</span></div></div>
+        }
+
+        if (!tableHasContent) {
+            return <div className="row"><div className="col-6 mx-auto mt-5 alert alert-danger"><span>Derzeit wurden keine Käufe oder Verkäufe getätigt.</span></div></div>
+        }
+
         return (
             <div>
                 <div className="row">
-                    <div className="col-8 mx-auto">
+                    <div className="col-8 mx-auto mt-5">
                         <table className="table" id="myTable">
                             <thead>
                                 <tr>
@@ -84,7 +95,7 @@ class Table extends React.Component {
                                 {console.log("Enter body...")}
                                 {
                                     this.state.stocks.map((stock, key) => {
-                                        
+
                                         return (
                                             <tr key={key}>
                                                 <td>{stock.isin}</td>
