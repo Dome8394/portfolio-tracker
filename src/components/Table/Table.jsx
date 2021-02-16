@@ -17,11 +17,10 @@ class Table extends React.Component {
         }
         this.displayCreateStockEntry = this.displayCreateStockEntry.bind(this);
         this.hideCreateStockEntry = this.hideCreateStockEntry.bind(this);
-        // this.doSomething = this.doSomething.bind(this);
+        this.createStockEntry = this.createStockEntry.bind(this);
     }
 
     displayCreateStockEntry = () => {
-        console.log("State of display: " + this.state.displayForm);
         this.setState({
             displayForm: true
         });
@@ -32,6 +31,14 @@ class Table extends React.Component {
             displayForm: false
         });
     };
+
+    /**
+     * @TODO
+     * @param {*} data 
+     */
+    createStockEntry = (data) => {
+
+    }
 
     componentDidMount() {
         this._isMounted = true;
@@ -65,18 +72,16 @@ class Table extends React.Component {
 
     render() {
 
-        function doSomething() {
-            console.log("This works.")
-        };
-
         let createStockEntryForm = null;
         let tableHasContent = this.state.tableHasContent;
         let serverNotAvailable = this.state.serverNotAvailable;
 
 
         if (this.state.displayForm) {
-            createStockEntryForm =
-                <Form displayForm={this.state.displayForm} hideForm={this.hideCreateStockEntry} />
+            return (
+                createStockEntryForm =
+                <Form displayForm={this.state.displayForm} hideForm={this.hideCreateStockEntry} createStockEntry={this.createStockEntry}/>
+            )
         }
 
         if (serverNotAvailable) {
@@ -85,6 +90,14 @@ class Table extends React.Component {
                     <div className="row g-1">
                         <div className="col-sm-6 col-md-8 mx-auto mt-5 alert alert-warning">
                             <span>Tut uns Leid! Der Server konnte nicht kontaktiert werden. Bitte versuchen Sie es später noch einmal!</span>
+                        </div>
+                    </div>
+                    <div className="row gy-5">
+                        <div className="col-sm-3 col-md-3 mx-auto mt-5">
+                            <button onClick={this.displayCreateStockEntry} className="btn btn-primary btn-block">
+                                <FontAwesomeIcon icon={faPlus} />
+                                Neuen Eintrag erstellen
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -104,7 +117,7 @@ class Table extends React.Component {
                     <div className="row gy-5">
                         <div className="col-sm-3 col-md-3 mx-auto mt-5">
                             <button onClick={this.displayCreateStockEntry} className="btn btn-primary btn-block">
-                                {/* <FontAwesomeIcon icon={faPlus} />  */}
+                                <FontAwesomeIcon icon={faPlus} />
                                 Neuen Eintrag erstellen
                             </button>
                         </div>
@@ -125,7 +138,7 @@ class Table extends React.Component {
                                         <th scope="col">Position</th>
                                         <th scope="col">Gekauft am</th>
                                         <th scope="col">Anzahl</th>
-                                        <th scope="col">Gekauft zu</th>
+                                        <th scope="col">Ge-/Verkauft zu</th>
                                         <th scope="col">Gebühr</th>
                                         <th scope="col">Gesamt</th>
                                     </tr>
@@ -152,22 +165,15 @@ class Table extends React.Component {
                             </table> {/* Closing table tag */}
                         </div>
                     </div> { /* closing row tag */}
-                    {/* <div className="row gy-5">
+                    <div className="row gy-5">
                         <div className="col-sm-3 col-md-3 mx-auto mt-5">
                             <button onClick={this.displayCreateStockEntry} className="btn btn-primary">
+                                <FontAwesomeIcon icon={faPlus} />
                                     Neuen Eintrag erstellen
                             </button>
-                            <div className="row">
-                                {console.log(this.state.displayForm)}
-                            </div>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
-
-                <button id="myTestBtn" onClick={console.log("Test")}>
-                    Test
-                </button>
-
                 { /* Closing final div */}
             </div>
         );

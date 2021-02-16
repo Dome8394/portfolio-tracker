@@ -28,26 +28,19 @@ module.exports = {
       }
     ]
   },
+  resolve: { extensions: ["*", ".js", ".jsx"] },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HtmlWebpackPlugin({
       title: 'Portfolio Tracker',
-      template: __dirname + '/public/index.html',
+      template: path.resolve(__dirname, './public/index.html'),
       filename: 'index.html',
       inject: 'body'
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
-  resolve: { extensions: ["*", ".js", ".jsx"] },
   output: {
-    path: path.resolve(__dirname, "dist/"),
-    publicPath: "/dist/",
-    filename: "bundle.js"
-  },
-  devServer: {
-    contentBase: path.join(__dirname, "public/"),
-    port: 3000,
-    publicPath: "http://localhost:3000/dist/",
-    hotOnly: true
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "./dist")
   }
 };
