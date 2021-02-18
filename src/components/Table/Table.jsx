@@ -36,8 +36,8 @@ class Table extends React.Component {
      * @TODO
      * @param {*} data 
      */
-    createStockEntry = (data) => {
-
+    createStockEntry = ({isin, stockTitle, boughtAt, amount, price, fee, totalAmount}) => {
+        console.log("Inside Table component, isin is: ", isin);
     }
 
     componentDidMount() {
