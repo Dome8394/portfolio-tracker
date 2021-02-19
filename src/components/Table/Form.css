@@ -26,3 +26,15 @@
     overflow: hidden;
     padding: 0px 18px 32px;
 }
+
+.display-none {
+    display: none;
+}
+
+.display-block {
+    display: block;
+    width: 100%;
+    color: #dc3545;
+    margin-top: .25rem;
+    font-size: .875em;
+}
