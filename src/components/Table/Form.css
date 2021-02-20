@@ -15,13 +15,20 @@
     justify-content: center;
     align-items: center;
     padding: 15px;
-    background: rgba(255, 255, 255, .8)
+    background: rgba(255, 255, 255, .3)
+}
+
+.form-header {
+    display: block;
+    font-size: 39px;
+    line-height: 1.2;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .wrap-form-content {
-    width: 750px;
-    background: #80c64a;
-    background: linear-gradient(45deg, #2193b0, #6dd5ed);
+    width: 1300px;
+    background: linear-gradient(45deg, #02aab0, #00cdac);
     border-radius: 10px;
     overflow: hidden;
     padding: 0px 18px 32px;
@@ -37,4 +44,18 @@
     color: #dc3545;
     margin-top: .25rem;
     font-size: .875em;
+}
+
+.fa-icon-size {
+    font-size: 350px;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+}
+
+.text-center {
+    text-align: center;
+    font-size: 25px;
 }
