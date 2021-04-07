@@ -125,18 +125,19 @@ class Form extends React.Component {
     render() {
         return (
             <div>
-                <div className="bg-container" style={{ backgroundImage: `url(${Background})` }} >
+                <div className="bg-container" >
                     <div className="form-wrapper">
                         <div className="wrap-form-content">
                             <form className="needs-validation">
                                 <div className="row">
                                     <div className="col-6 mt-5">
                                         <div className="row">
-                                            <span className="form-header mx-auto mb-3">
-                                                Neuer Eintrag
+                                            <span className="form-header mb-3 mx-4">
+                                                Neuer <br/> 
+                                                Eintrag
                                         </span>
                                         </div>
-                                        <div className="row fa-icon-size icon-container mt-5">
+                                        <div className="row fa-icon-size icon-container mt-5 ">
                                             <FontAwesomeIcon icon={faPiggyBank} size="xs" />
                                         </div>
                                         <div className="row mt-5">

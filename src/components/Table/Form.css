@@ -7,6 +7,11 @@
     background-size: cover;
 }
 
+.navbar-bg {
+    background: #ff8f00;
+    font-style: normal;
+}
+
 .form-wrapper {
     width: 100%;
     min-height: 100vh;
@@ -20,15 +25,16 @@
 
 .form-header {
     display: block;
-    font-size: 39px;
+    font-size: 105px;
     line-height: 1.2;
-    text-align: center;
+    text-align: left;
     text-transform: uppercase;
 }
 
 .wrap-form-content {
     width: 1300px;
-    background: linear-gradient(45deg, #02aab0, #00cdac);
+    background: linear-gradient(90deg
+    , #E65100, #FFA000);
     border-radius: 10px;
     overflow: hidden;
     padding: 0px 18px 32px;
@@ -47,7 +53,7 @@
 }
 
 .fa-icon-size {
-    font-size: 350px;
+    font-size: 450px;
 }
 
 .icon-container {

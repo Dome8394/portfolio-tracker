@@ -3,6 +3,8 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Form from './Form';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 class Table extends React.Component {
     _isMounted = false;
@@ -36,7 +38,7 @@ class Table extends React.Component {
      * @TODO
      * @param {*} data 
      */
-    createStockEntry = ({isin, stockTitle, boughtAt, amount, price, fee, totalAmount}) => {
+    createStockEntry = ({ isin, stockTitle, boughtAt, amount, price, fee, totalAmount }) => {
         console.log("Inside Table component, isin is: ", isin);
     }
 
@@ -80,7 +82,7 @@ class Table extends React.Component {
         if (this.state.displayForm) {
             return (
                 createStockEntryForm =
-                <Form displayForm={this.state.displayForm} hideForm={this.hideCreateStockEntry} createStockEntry={this.createStockEntry}/>
+                <Form displayForm={this.state.displayForm} hideForm={this.hideCreateStockEntry} createStockEntry={this.createStockEntry} />
             )
         }
 
@@ -94,10 +96,14 @@ class Table extends React.Component {
                     </div>
                     <div className="row gy-5">
                         <div className="col-sm-3 col-md-3 mx-auto mt-5">
-                            <button onClick={this.displayCreateStockEntry} className="btn btn-primary btn-block">
-                                <FontAwesomeIcon icon={faPlus} />
+                            <Button
+                                startIcon={<AddIcon />}
+                                onClick={this.displayCreateStockEntry}
+                                variant="contained"
+                                color="#ffcaba"
+                            >
                                 Neuen Eintrag erstellen
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -116,10 +122,10 @@ class Table extends React.Component {
                     </div> {/* closing first row */}
                     <div className="row gy-5">
                         <div className="col-sm-3 col-md-3 mx-auto mt-5">
-                            <button onClick={this.displayCreateStockEntry} className="btn btn-primary btn-block">
+                            <Button onClick={this.displayCreateStockEntry} className="btn btn-primary btn-block">
                                 <FontAwesomeIcon icon={faPlus} />
                                 Neuen Eintrag erstellen
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </div>
