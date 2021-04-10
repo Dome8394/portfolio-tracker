@@ -22,26 +22,6 @@ class Table extends React.Component {
         this.createStockEntry = this.createStockEntry.bind(this);
     }
 
-    displayCreateStockEntry = () => {
-        this.setState({
-            displayForm: true
-        });
-    };
-
-    hideCreateStockEntry = () => {
-        this.setState({
-            displayForm: false
-        });
-    };
-
-    /**
-     * @TODO
-     * @param {*} data 
-     */
-    createStockEntry = ({ isin, stockTitle, boughtAt, amount, price, fee, totalAmount }) => {
-        console.log("Inside Table component, isin is: ", isin);
-    }
-
     componentDidMount() {
         this._isMounted = true;
 
@@ -71,6 +51,46 @@ class Table extends React.Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
+
+    displayCreateStockEntry = () => {
+        this.setState({
+            displayForm: true
+        });
+    };
+
+    hideCreateStockEntry = () => {
+        this.setState({
+            displayForm: false
+        });
+    };
+
+    /**
+     * Send the stock information to the server as provided by the entry form.
+     * @param {*} stock data 
+     */
+    createStockEntry = ({ isin, stockTitle, boughtAt, amount, price, fee, totalAmount }) => {
+        console.log("Inside Table component, isin is: ", isin);
+        axios.post('http://localhost:3000/myStocks',
+            {
+                'isin': isin,
+                'stockTitle': stockTitle,
+                'boughtAt': boughtAt,
+                'amount': amount,
+                'price': price,
+                'fee': fee,
+                'totalAmount': totalAmount,
+                'currency': currency
+            }
+        )
+            .then((res) => {
+                console.log(res);
+            })
+            .catch(function (error) {
+                console.log(error);
+                return;
+            });
+    }
+
 
     render() {
 

@@ -89,7 +89,7 @@ class Form extends React.Component {
      * 
      * @param {*} formData 
      */
-    formValidation = (formData) => {
+    formValidation = (stockData) => {
 
         let status = false;
         let fields = [];
@@ -98,8 +98,8 @@ class Form extends React.Component {
             'content': `Alle Werte wurden korrekt ausgefüllt`
         }
 
-        Object.keys(formData).forEach(key => {
-            if (formData[key] === null) {
+        Object.keys(stockData).forEach(key => {
+            if (stockData[key] === null) {
                 status = true;
                 msg["content"] = `Die folgenden Werte müssen ausgefüllt werden ${fields}`;
                 fields.push(key);
@@ -109,8 +109,6 @@ class Form extends React.Component {
         console.log(fields);
         this.invalidInputFeedback(fields);
 
-
-        /* console.log(`${msg["content"]}`); */
         return msg;
 
     }
@@ -137,7 +135,7 @@ class Form extends React.Component {
         }
 
         if (this.formValidation(stock).status) {
-            console.log(`${msg["content"]}`);
+            // console.log(`${msg["content"]}`);
             this.props.createStockEntry(stock);
         }
     }
