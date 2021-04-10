@@ -68,7 +68,7 @@ class Table extends React.Component {
      * Send the stock information to the server as provided by the entry form.
      * @param {*} stock data 
      */
-    createStockEntry = ({ isin, stockTitle, boughtAt, amount, price, fee, totalAmount }) => {
+    createStockEntry = ({ isin, stockTitle, boughtAt, amount, price, fee, totalAmount, currency }) => {
         console.log("Inside Table component, isin is: ", isin);
         axios.post('http://localhost:3000/myStocks',
             {

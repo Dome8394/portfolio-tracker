@@ -27,15 +27,15 @@ class Form extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isin: null,
-            stockTitle: null,
-            boughtAt: null,
-            amount: null,
-            price: null,
-            fee: null,
-            totalAmount: null,
-            currency: null,
-            startDate: null
+            isin: 0,
+            stockTitle: '',
+            boughtAt: new Date(),
+            amount: 0,
+            price: 0,
+            fee: 0,
+            totalAmount: 0,
+            currency: currencies[0].value,
+            startDate: new Date()
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
@@ -49,12 +49,12 @@ class Form extends React.Component {
         const value = e.target.value;
 
         console.log(e.target.id);
+        console.log(e.target.value);
         
         this.setState({
             ...this.state,
             [e.target.id]: value
         });
-        console.log(this.state.currency);
     }
 
     handleDateChange = (date) => {
@@ -64,6 +64,7 @@ class Form extends React.Component {
     }
 
     handleChangeCurrency = (e) => {
+        console.log(e.target.value)
         this.setState({
             currency: e.target.value
         });
@@ -91,7 +92,7 @@ class Form extends React.Component {
      */
     formValidation = (stockData) => {
 
-        let status = false;
+        let status = true;
         let fields = [];
         let msg = {
             'status': status,
@@ -100,15 +101,13 @@ class Form extends React.Component {
 
         Object.keys(stockData).forEach(key => {
             if (stockData[key] === null) {
-                status = true;
+                status = false;
                 msg["content"] = `Die folgenden Werte müssen ausgefüllt werden ${fields}`;
                 fields.push(key);
             }
         });
         
-        console.log(fields);
         this.invalidInputFeedback(fields);
-
         return msg;
 
     }
@@ -134,8 +133,10 @@ class Form extends React.Component {
             'currency': this.state.currency
         }
 
+        console.log(this.formValidation(stock).status);
+
         if (this.formValidation(stock).status) {
-            // console.log(`${msg["content"]}`);
+            // console.log(stock);
             this.props.createStockEntry(stock);
         }
     }
