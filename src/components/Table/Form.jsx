@@ -1,7 +1,8 @@
 import React from 'react';
 import './Form.css';
-import Background from '../../assets/samson-ZGjbiukp_-A-unsplash.jpg';
-import { DatePickerClass } from './DatePicker';
+import "react-datepicker/dist/react-datepicker.css";
+
+import DatePicker from "react-datepicker";
 
 import { faPiggyBank } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,9 +34,12 @@ class Form extends React.Component {
             price: null,
             fee: null,
             totalAmount: null,
-            currency: ''
+            currency: null,
+            startDate: null
         }
         this.handleChange = this.handleChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleChangeCurrency = this.handleChangeCurrency.bind(this);
         this.formValidation = this.formValidation.bind(this);
         this.createStock = this.createStock.bind(this);
         this.invalidInputFeedback = this.invalidInputFeedback.bind(this);
@@ -44,9 +48,24 @@ class Form extends React.Component {
     handleChange = (e) => {
         const value = e.target.value;
 
+        console.log(e.target.id);
+        
         this.setState({
             ...this.state,
             [e.target.id]: value
+        });
+        console.log(this.state.currency);
+    }
+
+    handleDateChange = (date) => {
+        this.setState({
+            boughtAt: date
+        });
+    }
+
+    handleChangeCurrency = (e) => {
+        this.setState({
+            currency: e.target.value
         });
     }
 
@@ -70,7 +89,7 @@ class Form extends React.Component {
      * 
      * @param {*} formData 
      */
-    formValidation = formData => {
+    formValidation = (formData) => {
 
         let status = false;
         let fields = [];
@@ -80,17 +99,18 @@ class Form extends React.Component {
         }
 
         Object.keys(formData).forEach(key => {
-            if (formData[key] == null) {
+            if (formData[key] === null) {
                 status = true;
                 msg["content"] = `Die folgenden Werte müssen ausgefüllt werden ${fields}`;
                 fields.push(key);
             }
         });
-
+        
+        console.log(fields);
         this.invalidInputFeedback(fields);
 
 
-        console.log(`${msg["content"]}`);
+        /* console.log(`${msg["content"]}`); */
         return msg;
 
     }
@@ -116,7 +136,7 @@ class Form extends React.Component {
             'currency': this.state.currency
         }
 
-        if (this.formValidation(stock)[0]) {
+        if (this.formValidation(stock).status) {
             console.log(`${msg["content"]}`);
             this.props.createStockEntry(stock);
         }
@@ -133,7 +153,7 @@ class Form extends React.Component {
                                     <div className="col-6 mt-5">
                                         <div className="row">
                                             <span className="form-header mb-3 mx-4">
-                                                Neuer <br/> 
+                                                Neuer <br />
                                                 Eintrag
                                         </span>
                                         </div>
@@ -178,16 +198,21 @@ class Form extends React.Component {
                                             <div className="form-floating mb-3 col-md-8 m-1">
                                                 {/* <input type="text" className="form-control" onChange={this.handleChange} /> */}
                                                 <TextField
-                                                    id="standard-basic"
+                                                    id="datePicker"
+                                                    type="date"
                                                     fullWidth
+                                                    defaultValue="2017-05-24"
                                                     label="Datum"
                                                     helperText="Bitte gebe ein gültiges Datum ein"
-                                                    onChange={this.handleChange} />
-                                                {/* <label for="boughtAt" className="form-label">Gekauft am</label> */}
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                    }}
+                                                    onChange={this.handleDateChange}
+                                                />
+                        
                                                 <div className="display-none" id="boughtAt" >
                                                     Bitte gebe ein gültiges Datum ein!
                                                 </div>
-                                                <DatePickerClass />
                                             </div>
                                         </div>
                                         <div className="row">
@@ -207,12 +232,13 @@ class Form extends React.Component {
                                         <div className="row">
                                             <div className="mb-3 col-md-3">
                                                 <TextField
-                                                    id="standard-select-currency"
+                                                    id="select-currency"
+                                                    name="currency"
                                                     select
                                                     fullWidth
                                                     label="Währung"
                                                     value={this.state.currency}
-                                                    onChange={this.handleChange}
+                                                    onChange={this.handleChangeCurrency}
                                                     helperText="Bitte wähle deine Währung"
                                                 >
                                                     {currencies.map((option) => (
@@ -221,6 +247,9 @@ class Form extends React.Component {
                                                         </MenuItem>
                                                     ))}
                                                 </TextField>
+                                                <div className="display-none" id="currency" >
+                                                    Bitte wähle eine Währung aus!
+                                                </div>
                                             </div>
                                             <div className="mb-3 col-md-5">
                                                 {/* <input type="text" className="form-control" onChange={this.handleChange} /> */}
